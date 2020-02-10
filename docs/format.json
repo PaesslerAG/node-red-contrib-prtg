@@ -1,0 +1,15 @@
+{
+    "prtg": {
+        "result": [
+            {
+                "channel": "ChannelName",
+                "channelid": 1,
+                "value": 13.37,
+                "float": "1",
+                "unit": "custom",
+                "customunit": "#"
+            }
+        ],
+        "text": "Last update: 2020-01-07T07:15:12.939Z"
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "paesslerag-node-red-contrib-prtg",
+  "version": "0.0.1",
+  "description": "node-red nodes to interact with PRTG Network Monitor",
+  "keywords": [
+    "prtg",
+    "http",
+    "push"
+  ],
+  "main": "nodes/prtg-push/prtg-push.js",
+  "node-red": {
+    "nodes": {
+      "prtg-push": "nodes/prtg-push/prtg-push.js",
+      "prtg-config": "nodes/prtg-config/prtg-config.js"
+    }
+  },
+  "scripts": {
+    "build": "gulp",
+    "release": "gulp && standard-version",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaesslerAG/node-red-contrib-prtg.git"
+  },
+  "author": "Paessler AG <support@paessler.com> (https://www.paessler.com)",
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/PaesslerAG/node-red-contrib-prtg/blob/master/LICENSE"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/PaesslerAG/node-red-contrib-prtg/issues"
+  },
+  "homepage": "https://github.com/PaesslerAG/node-red-contrib-prtg#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  },
+  "dependencies": {}
+}
