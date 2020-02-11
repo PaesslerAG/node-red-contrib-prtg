@@ -92,7 +92,6 @@ module.exports = function (RED) {
                 let resolvedValue = getNested(msg, channelKey)
                 node.log('\tresolvedValue\t->\t' + JSON.stringify(resolvedValue))
                 let resultObj = {
-                    channelid: config.channels[channelKey].channelid,
                     channel: config.channels[channelKey].channel,
                     value: resolvedValue,
                     float: "1",
