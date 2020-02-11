@@ -33,21 +33,60 @@
 
 <script type="text/x-red" data-template-name="prtg-config">
   <div class="form-row node-input-host">
-      <label for="node-config-input-host"><i class="fa fa-globe"></i> <span>Server</span></label>
-      <input class="input-append-left input-error" type="text" id="node-config-input-host" style="width:40%;" dir="" placeholder="e.g. localhost">
-      <label for="node-config-input-port" style="margin-left:20px; width:43px; "> <span>Port</span></label>
-      <input type="text" id="node-config-input-port" style="width:55px" dir="" placeholder="Port">
+    <label for="node-config-input-host"><i class="fa fa-globe"></i> <span>Server</span></label>
+    <input class="input-append-left input-error" type="text" id="node-config-input-host" style="width:40%;" dir="" placeholder="e.g. localhost">
+    <label for="node-config-input-port" style="margin-left:20px; width:43px; "> <span>Port</span></label>
+    <input type="text" id="node-config-input-port" style="width:55px" dir="" placeholder="Port">
   </div>
   <div class="form-row">
-      <input type="checkbox" id="node-config-input-usetls" style="display: inline-block; width: auto; vertical-align: top;">
-      <label for="node-config-input-usetls" style="width: auto">Enable secure (SSL/TLS) connection</label>
-    </div>
-    <div class="form-row">
-      <input type="checkbox" id="node-config-input-ignoreUnsafeEndpoints" style="display: inline-block; width: auto; vertical-align: top;">
-      <label for="node-config-input-ignoreUnsafeEndpoints" style="width: auto">ignore endpoints with unsafe certificates</label>
-    </div>
-    <div class="form-row">
-      <input type="checkbox" id="node-config-input-followredirect" style="display: inline-block; width: auto; vertical-align: top;">
-      <label for="node-config-input-followredirect" style="width: auto">Follow redirects</label>
+    <input type="checkbox" id="node-config-input-usetls" style="display: inline-block; width: auto; vertical-align: top;">
+    <label for="node-config-input-usetls" style="width: auto">Enable secure (SSL/TLS) connection</label>
   </div>
+  <div class="form-row">
+    <input type="checkbox" id="node-config-input-ignoreUnsafeEndpoints" style="display: inline-block; width: auto; vertical-align: top;">
+    <label for="node-config-input-ignoreUnsafeEndpoints" style="width: auto">ignore endpoints with unsafe certificates</label>
+  </div>
+  <div class="form-row">
+    <input type="checkbox" id="node-config-input-followredirect" style="display: inline-block; width: auto; vertical-align: top;">
+    <label for="node-config-input-followredirect" style="width: auto">Follow redirects</label>
+  </div>
+</script>
+<script type="text/x-red" data-help-name="prtg-config">
+  <p>
+      This node represents a <a href="https://www.paessler.com/prtg">PRTG</a> endpoint configration.
+  </p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>Host
+        <span class="property-type">string</span>
+    </dt>
+    <dd> Hostname or IP address under which the PRTG Probe is reachable. 
+    </dd>
+    <dt>port
+      <span class="property-type">string</span>
+    </dt>
+    <dd> Port on the PRTG Probe the receiving Sensor is bound to listen.
+    </dd>
+    <dt>usetls
+      <span class="property-type">boolean</span>
+    </dt>
+    <dd> Whether or not TLS should be used. 
+    </dd>
+    <dt>ignoreUnsafeEndpoints
+      <span class="property-type">boolean</span>
+    </dt>
+    <dd> ignore endpoints with unsafe (self signed) certificates
+    </dd>
+    <dt>followredirect
+      <span class="property-type">boolean</span>
+    </dt>
+    <dd> Follow redirects. 
+    </dd>
+   </dl>
+  <h3>References</h3>
+    <ul>
+        <li><a href="https://www.paessler.com/prtg">PRTG</a></li>
+        <li><a href="https://github.com/PaesslerAG/node-red-contrib-prtg">GitHub</a> - the nodes github repository</li>
+    </ul>        
 </script>
