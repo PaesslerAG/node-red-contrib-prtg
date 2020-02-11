@@ -36,7 +36,6 @@
                     "playload":{
                         msg: "payload",
                         channel: "",
-                        channelid: 1,
                         unit:""
                     }
                 },
@@ -58,10 +57,9 @@
 		    inputChannels.each((k,row)=>{
                 let msg = $(row).find('.node-input-channels-msg').val()
                 let channel = $(row).find('.node-input-channels-channel').val()
-                let channelid = $(row).find('.node-input-channels-channelid').val()
                 let unit = $(row).find('.node-input-channels-unit').val()
 
-                if(msg.trim() || channel.trim() || unit.trim() || channelid.trim()) this.channels[msg]={channel,channelid,unit}
+                if(msg.trim() || channel.trim() || unit.trim()) this.channels[msg]={channel,unit}
             })
 
             // All requires are fullfilled
@@ -79,7 +77,6 @@
                     let rows = [
                         $('<div/>',{style:"padding-left: 5px; width: 100%"}).appendTo(container),
                         $('<div/>',{style:"padding-top: 5px; padding-left: 5px; width: 100%"}).appendTo(container),
-                        $('<div/>',{style:"padding-top: 5px; padding-left: 5px; width: 100%"}).appendTo(container),
                         $('<div/>',{style:"padding-top: 5px; padding-left: 5px; width: 100%"}).appendTo(container)
                     ]
 
@@ -96,12 +93,7 @@
                     channelInput.on('change', function(evt, type) {
                         setLabel(channelInput,'Channel-Name')
                     }) 
-
-                    let channelidInput = $('<input/>',{id:'input_channelidinput_'+index,class:"node-input-channels-channelid",type:"number"}).appendTo(rows[2]).val(data.channelid)
-                    channelidInput.typedInput({types:['num']}).typedInput('width','calc(100% - 10px)').typedInput('value',index+1)
-                    setLabel(channelidInput,'Channel-ID')
-
-
+    
                     let unitInput = $('<input/>',{id:'input_unit_'+index,class:"node-input-channels-unit",type:"text"}).appendTo(rows[3]).val(data.unit)
                     unitInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)').typedInput('value','#')
                     setLabel(unitInput,'Unit')
@@ -230,15 +222,6 @@
                     </dl>
                 </li>
                 <li><dl class="message-properties">
-                    <dt>Channel-ID: 
-                    <span class="property-type">number</span>
-                    </dt>
-                    <dd>
-                        ID of the sensor channel within PRTG
-                    </dd>
-                    </dl>
-                </li>
-                <li><dl class="message-properties">
                     <dt>Unit: 
                     <span class="property-type">string | payload path</span>
                     </dt>
@@ -261,7 +244,7 @@
     "data":{
         "prtg":{
             "result":[
-                {"channelid":"1","channel":"test","value":{"message":"message","value":23},"float":"1","unit":"custom","customunit":"#"}
+                {"channel":"test","value":{"message":"message","value":23},"float":"1","unit":"custom","customunit":"#"}
             ],
             "text":"Last update: 2020-02-10T13:41:11.648Z"
         }
@@ -277,8 +260,8 @@
 {
     "prtg":{
         "result":[
-        {"channelid":1,"channel":"Temperature","value":21,"float":"1","unit":"custom","customunit":"°C"},
-        {"channelid":2,"channel":"Humanity","value":40,"float":"1","unit":"custom","customunit":"%"}
+        {"channel":"Temperature","value":21,"float":"1","unit":"custom","customunit":"°C"},
+        {"channel":"Humanity","value":40,"float":"1","unit":"custom","customunit":"%"}
         ],
         "text":"Last update: 2020-01-28T14:37:14.486Z"
     }
