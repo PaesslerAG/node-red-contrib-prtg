@@ -91,7 +91,7 @@
                     let channelInput = $('<input/>',{id:'input_channelinput_'+index,class:"node-input-channels-channel",type:"text",placeholder:"Channel name"}).appendTo(rows[1])
                     channelInput.typedInput({types:['msg','str']}).typedInput('width','calc(100% - 10px)')
                     channelInput.typedInput('value',(data.channel)?data.channel:'payload')
-                    setLabel(channelInput,'Channel')
+                    setLabel(channelInput,'Channel-Name')
                     channelInput.on('change', function(evt, type) {
                         setLabel(channelInput,'Channel-Name')
                     }) 
