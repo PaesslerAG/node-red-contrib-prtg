@@ -80,20 +80,21 @@
                         $('<div/>',{style:"padding-top: 5px; padding-left: 5px; width: 100%"}).appendTo(container)
                     ]
 
-                    let msgInput = $('<input/>',{id:'input_msg_'+index,class:"node-input-channels-msg",type:"text"}).appendTo(rows[0]).val(data.msg)
+                    let msgInput = $('<input/>',{id:'input_msg_'+index,class:"node-input-channels-msg",type:"text"}).appendTo(rows[0])
                     msgInput.typedInput({types:['msg']}).typedInput('width','calc(100% - 10px)')
+                    msgInput.typedInput('value',(data.msg)?data.msg:'payload')
                     setLabel(msgInput,'Value-Path')
                     msgInput.on('change', function(evt, type) {
                         setLabel(msgInput,'Value-Path')
                     })                 
                     
-                    let channelInput = $('<input/>',{id:'input_channelinput_'+index,class:"node-input-channels-channel",type:"text",placeholder:"Channel name"}).appendTo(rows[1]).val(data.channel)
+                    let channelInput = $('<input/>',{id:'input_channelinput_'+index,class:"node-input-channels-channel",type:"text",placeholder:"Channel name"}).appendTo(rows[1])
                     channelInput.typedInput({types:['msg','str']}).typedInput('width','calc(100% - 10px)')
+                    channelInput.typedInput('value',(data.channel)?data.channel:'payload')
                     setLabel(channelInput,'Channel')
                     channelInput.on('change', function(evt, type) {
                         setLabel(channelInput,'Channel-Name')
                     }) 
-    
                     let unitInput = $('<input/>',{id:'input_unit_'+index,class:"node-input-channels-unit",type:"text"}).appendTo(rows[2]).val(data.unit)
                     unitInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)').typedInput('value','#')
                     setLabel(unitInput,'Unit')
