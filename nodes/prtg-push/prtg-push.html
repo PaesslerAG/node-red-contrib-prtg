@@ -96,7 +96,8 @@
                         setLabel(channelInput,'Channel-Name')
                     }) 
                     let unitInput = $('<input/>',{id:'input_unit_'+index,class:"node-input-channels-unit",type:"text"}).appendTo(rows[2]).val(data.unit)
-                    unitInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)').typedInput('value','#')
+                    unitInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)')
+                    unitInput.typedInput('value',(data.unit)?data.unit:'#')
                     setLabel(unitInput,'Unit')
                     unitInput.on('change', function(evt, type) {
                         setLabel(unitInput,'Unit')
