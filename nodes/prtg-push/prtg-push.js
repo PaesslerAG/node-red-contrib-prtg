@@ -118,5 +118,5 @@ module.exports = function (RED) {
         });
     }
 
-    RED.nodes.registerType("prtg-push", prtg_push);
+    RED.nodes.registerType("prtg-connector", prtg_push);
 }

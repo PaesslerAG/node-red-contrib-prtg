@@ -5,7 +5,7 @@
         $(input).parent().find('.red-ui-typedInput-type-label').html(value)
     }
 
-    RED.nodes.registerType('prtg-push', {
+    RED.nodes.registerType('prtg-connector', {
         category: 'PRTG',
         color:'#aaccff',
         defaults: {
@@ -29,7 +29,7 @@
                 types: ["num"]
             },
             name: {
-                value: "prtg-push"
+                value: "prtg-connector"
             },
             channels: {
                 value:{
@@ -46,7 +46,7 @@
         outputs: 1,
         icon: "prtg.png",
         label: function () {
-            return this.name || "prtg-push";
+            return this.name || "prtg-connector";
         },
         align: 'right',
         oneditsave: function() {
@@ -63,7 +63,7 @@
             })
 
             // All requires are fullfilled
-            if($('.prtg-push .input-error').length == 0) $('#node-input-validation').val('ok')
+            if($('.prtg-connector .input-error').length == 0) $('#node-input-validation').val('ok')
         },
         oneditprepare: function() {
             $('#node-input-validation').val('')
@@ -109,7 +109,7 @@
             })
 
             /* Adds class to the parent of editableList for styling namespace */
-            $('.red-ui-editableList').addClass('prtg-push')
+            $('.red-ui-editableList').addClass('prtg-connector')
 
             for(let [k,v] of Object.entries(this.channels)){
                 $("#channel-container").editableList('addItem',{msg:k,...v});
@@ -132,7 +132,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="prtg-push">
+<script type="text/x-red" data-template-name="prtg-connector">
     <div class="form-row">
         <label for="node-input-name">
             <i class="icon-tag"></i> Name</label>
@@ -171,7 +171,7 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="prtg-push">
+<script type="text/x-red" data-help-name="prtg-connector">
     <p>
         This node sends gathered data to the <a href="https://www.paessler.com/manuals/prtg/http_push_data_advanced_sensor">Http Push Data Advanced</a> or 
         <a href="https://www.paessler.com/manuals/prtg/http_iot_push_data_advanced">IoT Push Data Advanced Sensor</a> port of your <a href="https://www.paessler.com/prtg">PRTG</a>-Probe.
@@ -182,7 +182,7 @@
         <dt>Timeout
             <span class="property-type">number</span>
         </dt>
-        <dd> The timeout field describes the communication timeout between the PRTG-push node and the PRTG Probe instance itself.
+        <dd> The timeout field describes the communication timeout between the PRTG-connector node and the PRTG Probe instance itself.
             The value is in ms. Typical values are < 10000 (lower than 10 seconds). Keep in mind that since <a href="https://nodered.org/docs/creating-nodes/node-js#timeout-behaviour">Node-RED Version 0.17</a> the node timeout is max 15 seconds. 
         </dd>
         
@@ -278,21 +278,21 @@
 </script>
 
 <style type="text/css">
-    .prtg-push.red-ui-editableList {
+    .prtg-connector.red-ui-editableList {
         height: calc(100% - 150px);
     }
-    .prtg-push .red-ui-editableList-container {
+    .prtg-connector .red-ui-editableList-container {
         height: calc(100% - 40px);
     }
-    .prtg-push .red-ui-editableList-border {
+    .prtg-connector .red-ui-editableList-border {
         height: 100%
     }
 
-    .prtg-push .red-ui-typedInput-type-label {
+    .prtg-connector .red-ui-typedInput-type-label {
        padding: 0px !important;
        padding-right: 10px !important;
     }
-    .prtg-push .error-msg {
+    .prtg-connector .error-msg {
         font-size: 10px;
         color: red;
         line-height: 10px;

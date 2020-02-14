@@ -6,10 +6,10 @@ node-red nodes to interact with PRTG Network Monitor
 
 ## PRTG Nodes:
 
-![prtg-push Node](docs/prtg-node.png "prtg-push Node")
+![prtg-connector Node](docs/prtg-node.png "prtg-connector Node")
 
-The prtg-push node ingests a msg payload, transforms it to the PRTG Custom Sensor message format and sends an HTTP Post request to the configured PRTG Probe.
-The address and ID-Token of your PRTG-Probe needs to be configured.
+The prtg-connector node ingests a msg payload, transforms it to the PRTG Custom Sensor message format and sends an HTTP Post request to the configured PRTG Probe.
+The address and ID-Token used for the HTTP Push Based Sensor of your PRTG-Probe needs to be configured.
 
 ## Configuration
 
