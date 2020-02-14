@@ -7,10 +7,10 @@
     "http",
     "push"
   ],
-  "main": "nodes/prtg-push/prtg-push.js",
+  "main": "nodes/prtg-connector/prtg-connector.js",
   "node-red": {
     "nodes": {
-      "prtg-push": "nodes/prtg-push/prtg-push.js",
+      "prtg-connector": "nodes/prtg-connector/prtg-connector.js",
       "prtg-config": "nodes/prtg-config/prtg-config.js"
     }
   },
