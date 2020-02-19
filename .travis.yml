@@ -1,9 +1,18 @@
 language: node_js
+
 node_js:
- - "stable"
- branches:
+  - 'lts/*'
+branches:
   only:
-  - master
+    - master
+
+# Retry install on fail to avoid failing a build on network/disk/external errors
+install:
+  - travis_retry npm install
+
+script:
+  - npm run test
+
 jobs:
   include:
     - stage: release
@@ -13,4 +22,3 @@ jobs:
         skip_cleanup: true
         script:
           - npx semantic-release
-          
