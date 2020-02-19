@@ -5,7 +5,8 @@
   "keywords": [
     "prtg",
     "http",
-    "push"
+    "push",
+    "node-red"
   ],
   "main": "nodes/prtg-connector/prtg-connector.js",
   "node-red": {
