@@ -58,8 +58,8 @@
                 let msg = $(row).find('.node-input-channels-msg').val()
                 let channel = $(row).find('.node-input-channels-channel').val()
                 let unit = $(row).find('.node-input-channels-unit').val()
-
-                if(msg.trim() || channel.trim() || unit.trim()) this.channels[msg]={channel,unit}
+                let channeltype = $(row).find('.node-input-channels-channel-channeltype').val()
+                if(msg.trim() || channel.trim() || unit.trim()) this.channels[msg]={channeltype,channel,unit}
             })
 
             // All requires are fullfilled
@@ -89,12 +89,17 @@
                     })                 
                     
                     let channelInput = $('<input/>',{id:'input_channelinput_'+index,class:"node-input-channels-channel",type:"text",placeholder:"Channel name"}).appendTo(rows[1])
+                    let channelInputType = $('<input/>',{id:'input_channelinput_channeltype_'+index,class:"node-input-channels-channel-channeltype",type:"hidden",value:""}).appendTo(rows[1])
                     channelInput.typedInput({types:['msg','str']}).typedInput('width','calc(100% - 10px)')
+                    channelInput.typedInput('type',data.channeltype)
                     channelInput.typedInput('value',(data.channel)?data.channel:'payload')
+                    channelInputType.val(channelInput.typedInput('type'))
                     setLabel(channelInput,'Channel-Name')
                     channelInput.on('change', function(evt, type) {
                         setLabel(channelInput,'Channel-Name')
-                    }) 
+                        channelInputType.val(channelInput.typedInput('type'))
+                    })                     
+
                     let unitInput = $('<input/>',{id:'input_unit_'+index,class:"node-input-channels-unit",type:"text"}).appendTo(rows[2]).val(data.unit)
                     unitInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)')
                     unitInput.typedInput('value',(data.unit)?data.unit:'#')
