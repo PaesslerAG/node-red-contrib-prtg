@@ -33,9 +33,10 @@
             },
             channels: {
                 value:{
-                    "playload":{
+                    "payload":{
                         msg: "payload",
                         channel: "",
+                        channeltype: "str",
                         unit:""
                     }
                 },
@@ -58,8 +59,8 @@
                 let msg = $(row).find('.node-input-channels-msg').val()
                 let channel = $(row).find('.node-input-channels-channel').val()
                 let unit = $(row).find('.node-input-channels-unit').val()
-
-                if(msg.trim() || channel.trim() || unit.trim()) this.channels[msg]={channel,unit}
+                let channeltype = $(row).find('.node-input-channels-channel-channeltype').val()
+                if(msg.trim() || channel.trim() || unit.trim()) this.channels[msg]={channeltype,channel,unit}
             })
 
             // All requires are fullfilled
@@ -68,8 +69,8 @@
         oneditprepare: function() {
             $('#node-input-validation').val('')
             $("#channel-container").editableList({                
-                header: $("<p>").css("font-size", "14px").text("PRTG-Channel-Definitions"),
-                addButton: "Add channel defintion",
+                header: $("<p>").css("font-size", "14px").text("Channel Definitions for PRTG"),
+                addButton: "Add channel definition",
                 scrollOnAdd: true,
                 sortable: true,
                 removable: true,
@@ -83,18 +84,23 @@
                     let msgInput = $('<input/>',{id:'input_msg_'+index,class:"node-input-channels-msg",type:"text"}).appendTo(rows[0])
                     msgInput.typedInput({types:['msg']}).typedInput('width','calc(100% - 10px)')
                     msgInput.typedInput('value',(data.msg)?data.msg:'payload')
-                    setLabel(msgInput,'Value-Path')
+                    setLabel(msgInput,'Value Path')
                     msgInput.on('change', function(evt, type) {
-                        setLabel(msgInput,'Value-Path')
+                        setLabel(msgInput,'Value Path')
                     })                 
                     
                     let channelInput = $('<input/>',{id:'input_channelinput_'+index,class:"node-input-channels-channel",type:"text",placeholder:"Channel name"}).appendTo(rows[1])
+                    let channelInputType = $('<input/>',{id:'input_channelinput_channeltype_'+index,class:"node-input-channels-channel-channeltype",type:"hidden",value:""}).appendTo(rows[1])
                     channelInput.typedInput({types:['msg','str']}).typedInput('width','calc(100% - 10px)')
+                    channelInput.typedInput('type',data.channeltype)
                     channelInput.typedInput('value',(data.channel)?data.channel:'payload')
-                    setLabel(channelInput,'Channel-Name')
+                    channelInputType.val(channelInput.typedInput('type'))
+                    setLabel(channelInput,'Channel Name')
                     channelInput.on('change', function(evt, type) {
-                        setLabel(channelInput,'Channel-Name')
-                    }) 
+                        setLabel(channelInput,'Channel Name')
+                        channelInputType.val(channelInput.typedInput('type'))
+                    })                     
+
                     let unitInput = $('<input/>',{id:'input_unit_'+index,class:"node-input-channels-unit",type:"text"}).appendTo(rows[2]).val(data.unit)
                     unitInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)')
                     unitInput.typedInput('value',(data.unit)?data.unit:'#')
@@ -140,7 +146,7 @@
     </div>
     <div class="form-row">
         <label for="node-input-server">
-            <i class="icon-globe"></i> PRTG</label>
+            <i class="icon-globe"></i> PRTG Connection</label>
         <input type="text" id="node-input-server" placeholder="PRTG">
     </div>
     <div class="form-row">
@@ -151,13 +157,13 @@
 
     <div class="form-row">
         <label for="node-input-idtoken">
-            <i class="fa fa-key"></i> ID-Token</label>
+            <i class="fa fa-key"></i> ID Token</label>
         <input type="text" id="node-input-idtoken" placeholder="Identification Token">
     </div>
 
     <div class="form-row">
         <label for="node-input-message">
-            <i class="fa fa-file-text-o"></i> Sensor-Text</label>
+            <i class="fa fa-file-text-o"></i> Sensor Message</label>
         <input type="text" id="node-input-message" class="node-input-message" placeholder="Sensor Message Text">
         <input type="hidden" id="node-input-messagetype">
     </div>
@@ -173,8 +179,8 @@
 
 <script type="text/x-red" data-help-name="prtg-connector">
     <p>
-        This node sends gathered data to the <a href="https://www.paessler.com/manuals/prtg/http_push_data_advanced_sensor">Http Push Data Advanced</a> or 
-        <a href="https://www.paessler.com/manuals/prtg/http_iot_push_data_advanced">IoT Push Data Advanced Sensor</a> port of your <a href="https://www.paessler.com/prtg">PRTG</a>-Probe.
+        This node sends gathered data to the port of the <a href="https://www.paessler.com/manuals/prtg/http_push_data_advanced_sensor">Http Push Data Advanced</a> or 
+        <a href="https://www.paessler.com/manuals/prtg/http_iot_push_data_advanced">IoT Push Data Advanced Sensor</a> port of your probe system in <a href="https://www.paessler.com/prtg">PRTG</a>.
     </p>
 
     <h3>Inputs</h3>
@@ -182,44 +188,44 @@
         <dt>Timeout
             <span class="property-type">number</span>
         </dt>
-        <dd> The timeout field describes the communication timeout between the PRTG-connector node and the PRTG Probe instance itself.
-            The value is in ms. Typical values are < 10000 (lower than 10 seconds). Keep in mind that since <a href="https://nodered.org/docs/creating-nodes/node-js#timeout-behaviour">Node-RED Version 0.17</a> the node timeout is max 15 seconds. 
+        <dd> The timeout field defines the communication timeout between the prtg-connector node and the probe system in PRTG.
+             The value is given in milliseconds. Typical values are < 10000 (lower than 10 seconds). Keep in mind that since <a href="https://nodered.org/docs/creating-nodes/node-js#timeout-behaviour">Node-RED version 0.17</a>, the node timeout is 15 seconds (15000 milliseconds) maximum. 
         </dd>
         
-        <dt>ID-Token 
+        <dt>ID Token 
             <span class="property-type">string</span>
         </dt>
         <dd>
-            The unique identifier of the PRTG Sensor you want to address
+            This is the unique identifier of the configured sensor in PRTG that you want to address.
         </dd>
         
         <dt>Sensor Message 
             <span class="property-type">string|payload path</span>
         </dt>
         <dd>
-            The message the Sensor should show, either as plain string or payload path to be extracted from the input message
+            This is the message that the configured sensor in PRTG should show, either as a plain string, or as an extracted payload path.
         </dd>
-        <dt>PRTG-Channel-Definitions
+        <dt>Channel Definitions for PRTG
             <span class="property-type">channellist</span>
         </dt>
         <dd>
-            List of Channel definitions, consisting of:
+            List of channel definitions, consisting of:
             <ul>
                 <li><dl class="message-properties">
                     <dt>Value Path:  
                         <span class="property-type">payload path</span>
                     </dt>
                     <dd>
-                        payload path to extrace the channel value from the input message
+                        This is the payload path to extract the channel value from the input message payload.
                     </dd>
                     </dl>
                 </li>
                 <li><dl class="message-properties">
-                    <dt>Channel-Name: 
+                    <dt>Channel Name: 
                     <span class="property-type">string | payload path</span>
                     </dt>
                     <dd>
-                        Name of the channel
+                        This is the name of the channel of the configured sensor in PRTG.
                     </dd>
                     </dl>
                 </li>
@@ -228,7 +234,7 @@
                     <span class="property-type">string | payload path</span>
                     </dt>
                     <dd>
-                        Unitstring to use within PRTG, for example '#','°C','m'
+                        This is the channel unit string, for example, ‘#’, ‘°C’, or ‘m’. Enter a string or a placeholder.
                     </dd>
                     </dl>
                 </li>
@@ -239,10 +245,10 @@
  <h3>Outputs</h3>
     <dl class="message-properties">
         <dt>payload <span class="property-type">string</span></dt>
-        <dd>if successfull the payload contains the Info and the data of the request:
+        <dd>If successful, the payload contains the information and the data of the request:
             <code style="white-space: pre;word-break: normal;word-wrap: normal;">
 {
-    "info":"All required inputs completed. Sending PRTG-Msg to: localhost:5050",
+    "info":"All required inputs completed. Sending Msg to PRTG: localhost:5050",
     "data":{
         "prtg":{
             "result":[
@@ -257,13 +263,13 @@
     </dl>
 
 <h3>Details</h3>
-    An example of an outgoing PRTG-Message can look like this:
+    An example of an outgoing Message can look like this:
     <code style="white-space: pre;word-break: normal;word-wrap: normal;">
 {
     "prtg":{
         "result":[
         {"channel":"Temperature","value":21,"float":"1","unit":"custom","customunit":"°C"},
-        {"channel":"Humanity","value":40,"float":"1","unit":"custom","customunit":"%"}
+        {"channel":"Humidity","value":40,"float":"1","unit":"custom","customunit":"%"}
         ],
         "text":"Last update: 2020-01-28T14:37:14.486Z"
     }
@@ -274,6 +280,7 @@
     <ul>
         <li><a href="https://www.paessler.com/prtg">PRTG</a></li>
         <li><a href="https://github.com/PaesslerAG/node-red-contrib-prtg">GitHub</a> - the nodes github repository</li>
+        <li><a href="https://kb.paessler.com/en/topic/87520">Paessler Knowledge Base: How can I monitor IoT and IIoT environments with PRTG and Node-RED?</a></li>
     </ul>
 </script>
 

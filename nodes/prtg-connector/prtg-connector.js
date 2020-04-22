@@ -88,11 +88,19 @@ module.exports = function (RED) {
             for(let channelKey in config.channels) {
                 let channel = config.channels[channelKey]
                 node.log('\tchannelKey\t->\t' + JSON.stringify(channelKey))
-                node.log('\tchannel\t\t->\t' + JSON.stringify(channel))
+                node.log('\tchannel\t\t->\t' + JSON.stringify(channel.channel))
+                node.log('\tchanneltype\t\t->\t' + JSON.stringify(channel.channeltype))
+                let resolvedChannelName
+                if (channel.channeltype == "msg")
+                    resolvedChannelName = getNested(msg,channel.channel)
+                else
+                    resolvedChannelName = channel.channel
+                    
+                node.log('\tresolvedChannelName\t->\t' + JSON.stringify(resolvedChannelName))
                 let resolvedValue = getNested(msg, channelKey)
                 node.log('\tresolvedValue\t->\t' + JSON.stringify(resolvedValue))
                 let resultObj = {
-                    channel: config.channels[channelKey].channel,
+                    channel: resolvedChannelName,
                     value: resolvedValue,
                     float: "1",
                     unit: "custom",

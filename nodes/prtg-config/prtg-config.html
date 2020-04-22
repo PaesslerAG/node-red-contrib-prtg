@@ -44,7 +44,7 @@
   </div>
   <div class="form-row">
     <input type="checkbox" id="node-config-input-ignoreUnsafeEndpoints" style="display: inline-block; width: auto; vertical-align: top;">
-    <label for="node-config-input-ignoreUnsafeEndpoints" style="width: auto">ignore endpoints with unsafe certificates</label>
+    <label for="node-config-input-ignoreUnsafeEndpoints" style="width: auto">Ignore endpoints with unsafe certificates</label>
   </div>
   <div class="form-row">
     <input type="checkbox" id="node-config-input-followredirect" style="display: inline-block; width: auto; vertical-align: top;">
@@ -53,40 +53,41 @@
 </script>
 <script type="text/x-red" data-help-name="prtg-config">
   <p>
-      This node represents a <a href="https://www.paessler.com/prtg">PRTG</a> endpoint configration.
+      This node represents a <a href="https://www.paessler.com/prtg">PRTG</a> endpoint configuration.
   </p>
 
   <h3>Inputs</h3>
   <dl class="message-properties">
-    <dt>Host
+    <dt>host
         <span class="property-type">string</span>
     </dt>
-    <dd> Hostname or IP address under which the PRTG Probe is reachable. 
+    <dd> Hostname or IP address under which the probe system in PRTG is reachable. 
     </dd>
     <dt>port
       <span class="property-type">string</span>
     </dt>
-    <dd> Port on the PRTG Probe the receiving Sensor is bound to listen.
+    <dd> Port on the probe system in PRTG, on which the configured sensor listens.
     </dd>
     <dt>usetls
       <span class="property-type">boolean</span>
     </dt>
-    <dd> Whether or not TLS should be used. 
+    <dd> Define whether to use an SSL/TLS connection.
     </dd>
     <dt>ignoreUnsafeEndpoints
       <span class="property-type">boolean</span>
     </dt>
-    <dd> ignore endpoints with unsafe (self signed) certificates
+    <dd> Define whether to ignore errors from endpoints with self-signed certificates.
     </dd>
     <dt>followredirect
       <span class="property-type">boolean</span>
     </dt>
-    <dd> Follow redirects. 
+    <dd> Define whether to follow redirects. 
     </dd>
    </dl>
   <h3>References</h3>
     <ul>
         <li><a href="https://www.paessler.com/prtg">PRTG</a></li>
         <li><a href="https://github.com/PaesslerAG/node-red-contrib-prtg">GitHub</a> - the nodes github repository</li>
+        <li><a href="https://kb.paessler.com/en/topic/87520">Paessler Knowledge Base: How can I monitor IoT and IIoT environments with PRTG and Node-RED?</a></li>
     </ul>        
 </script>
