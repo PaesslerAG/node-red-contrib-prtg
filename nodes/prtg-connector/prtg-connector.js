@@ -1,5 +1,7 @@
 module.exports = function (RED) {
     function prtg_push(config) {
+        
+        var mustache = require("mustache");
         RED.nodes.createNode(this, config);
         var node = this;
         
@@ -122,7 +124,15 @@ module.exports = function (RED) {
             }
             node.log('messageText:' + messageText)
             node.log('messageType:' + config.messageType)
+            oldIdToken = config.idtoken;
+            if ((config.idtoken || "").indexOf("{{") != -1) {
+                node.log('Parse Tocket-Id from: ' + config.idtoken);
+                config.idtoken = mustache.render(config.idtoken, msg);
+				node.log('Parsed Tocket-Id to new Tocken-ID: ' + config.idtoken);
+			}
             sendToPRTG(dataContainer, messageText)
+            //reset id to old state:
+            config.idtoken  = oldIdToken;
         });
     }
 
