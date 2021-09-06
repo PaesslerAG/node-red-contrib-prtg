@@ -92,12 +92,22 @@ module.exports = function (RED) {
                 node.log('\tchannelKey\t->\t' + JSON.stringify(channelKey))
                 node.log('\tchannel\t\t->\t' + JSON.stringify(channel.channel))
                 node.log('\tchanneltype\t\t->\t' + JSON.stringify(channel.channeltype))
+                node.log('\tunittype\t\t->\t' + JSON.stringify(channel.unittype))
+                node.log('\tunit\t\t->\t' + JSON.stringify(channel.unit))                
+
                 let resolvedChannelName
                 if (channel.channeltype == "msg")
                     resolvedChannelName = getNested(msg,channel.channel)
                 else
                     resolvedChannelName = channel.channel
-                    
+
+                let resolvedUnit    
+                if (channel.unittype == "msg")
+                    resolvedUnit = getNested(msg,channel.unit)
+                else
+                    resolvedUnit = channel.unit 
+
+                node.log('\tNeue Unit:\t\t->\t' + resolvedUnit)         
                 node.log('\tresolvedChannelName\t->\t' + JSON.stringify(resolvedChannelName))
                 let resolvedValue = getNested(msg, channelKey)
                 node.log('\tresolvedValue\t->\t' + JSON.stringify(resolvedValue))
@@ -106,7 +116,7 @@ module.exports = function (RED) {
                     value: resolvedValue,
                     float: "1",
                     unit: "custom",
-                    customunit: config.channels[channelKey].unit
+                    customunit: resolvedUnit
                 }
                 dataContainer.push(resultObj)
                 node.log('next...')
@@ -124,6 +134,7 @@ module.exports = function (RED) {
             }
             node.log('messageText:' + messageText)
             node.log('messageType:' + config.messageType)
+
             oldIdToken = config.idtoken;
             if ((config.idtoken || "").indexOf("{{") != -1) {
                 node.log('Parse Tocket-Id from: ' + config.idtoken);
