@@ -91,7 +91,7 @@
                     
                     let channelInput = $('<input/>',{id:'input_channelinput_'+index,class:"node-input-channels-channel",type:"text",placeholder:"Channel name"}).appendTo(rows[1])
                     let channelInputType = $('<input/>',{id:'input_channelinput_channeltype_'+index,class:"node-input-channels-channel-channeltype",type:"hidden",value:""}).appendTo(rows[1])
-                    channelInput.typedInput({types:['msg','str']}).typedInput('width','calc(100% - 10px)')
+                    channelInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)')
                     channelInput.typedInput('type',data.channeltype)
                     channelInput.typedInput('value',(data.channel)?data.channel:'payload')
                     channelInputType.val(channelInput.typedInput('type'))

@@ -1,11 +1,11 @@
 module.exports = function (RED) {
-  function RemoteServerNode(n) {
-    RED.nodes.createNode(this, n);
-    this.host = n.host.replace('https://','').replace('http://','');
-    this.port = n.port;
-    this.usetls = n.usetls;
-    this.followredirect = n.followredirect;
-    this.ignoreUnsafeEndpoints = n.ignoreUnsafeEndpoints;
+  function RemoteServerNode(config) {
+    RED.nodes.createNode(this, config);
+    this.host = config.host.replace('https://','').replace('http://','');
+    this.port = config.port;
+    this.usetls = config.usetls;
+    this.followredirect = config.followredirect;
+    this.ignoreUnsafeEndpoints = config.ignoreUnsafeEndpoints;
   }
   RED.nodes.registerType("prtg-config", RemoteServerNode);
 }
