@@ -107,7 +107,7 @@ module.exports = function (RED) {
                 else
                     resolvedUnit = channel.unit 
 
-                node.log('\tNeue Unit:\t\t->\t' + resolvedUnit)         
+                node.log('\tresolvedUnit :\t\t->\t' + resolvedUnit);    
                 node.log('\tresolvedChannelName\t->\t' + JSON.stringify(resolvedChannelName))
                 let resolvedValue = getNested(msg, channelKey)
                 node.log('\tresolvedValue\t->\t' + JSON.stringify(resolvedValue))
@@ -137,9 +137,9 @@ module.exports = function (RED) {
 
             oldIdToken = config.idtoken;
             if ((config.idtoken || "").indexOf("{{") != -1) {
-                node.log('Parse Tocket-Id from: ' + config.idtoken);
+                node.log('parsed token-ID from: ' + config.idtoken);
                 config.idtoken = mustache.render(config.idtoken, msg);
-				node.log('Parsed Tocket-Id to new Tocken-ID: ' + config.idtoken);
+				node.log('parsed token-ID to new token-ID: ' + config.idtoken);
 			}
             sendToPRTG(dataContainer, messageText)
             //reset id to old state:
