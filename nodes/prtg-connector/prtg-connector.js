@@ -1,5 +1,7 @@
 module.exports = function (RED) {
     function prtg_push(config) {
+        
+        var mustache = require("mustache");
         RED.nodes.createNode(this, config);
         var node = this;
         
@@ -90,12 +92,22 @@ module.exports = function (RED) {
                 node.log('\tchannelKey\t->\t' + JSON.stringify(channelKey))
                 node.log('\tchannel\t\t->\t' + JSON.stringify(channel.channel))
                 node.log('\tchanneltype\t\t->\t' + JSON.stringify(channel.channeltype))
+                node.log('\tunittype\t\t->\t' + JSON.stringify(channel.unittype))
+                node.log('\tunit\t\t->\t' + JSON.stringify(channel.unit))                
+
                 let resolvedChannelName
                 if (channel.channeltype == "msg")
                     resolvedChannelName = getNested(msg,channel.channel)
                 else
                     resolvedChannelName = channel.channel
-                    
+
+                let resolvedUnit    
+                if (channel.unittype == "msg")
+                    resolvedUnit = getNested(msg,channel.unit)
+                else
+                    resolvedUnit = channel.unit 
+
+                node.log('\tresolvedUnit :\t\t->\t' + resolvedUnit);    
                 node.log('\tresolvedChannelName\t->\t' + JSON.stringify(resolvedChannelName))
                 let resolvedValue = getNested(msg, channelKey)
                 node.log('\tresolvedValue\t->\t' + JSON.stringify(resolvedValue))
@@ -104,7 +116,7 @@ module.exports = function (RED) {
                     value: resolvedValue,
                     float: "1",
                     unit: "custom",
-                    customunit: config.channels[channelKey].unit
+                    customunit: resolvedUnit
                 }
                 dataContainer.push(resultObj)
                 node.log('next...')
@@ -122,7 +134,16 @@ module.exports = function (RED) {
             }
             node.log('messageText:' + messageText)
             node.log('messageType:' + config.messageType)
+
+            oldIdToken = config.idtoken;
+            if ((config.idtoken || "").indexOf("{{") != -1) {
+                node.log('parsed token-ID from: ' + config.idtoken);
+                config.idtoken = mustache.render(config.idtoken, msg);
+				node.log('parsed token-ID to new token-ID: ' + config.idtoken);
+			}
             sendToPRTG(dataContainer, messageText)
+            //reset id to old state:
+            config.idtoken  = oldIdToken;
         });
     }
 

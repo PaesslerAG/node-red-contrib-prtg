@@ -37,7 +37,8 @@
                         msg: "payload",
                         channel: "",
                         channeltype: "str",
-                        unit:""
+                        unit:"",
+                        unittype: "str",
                     }
                 },
                 required: true
@@ -60,7 +61,9 @@
                 let channel = $(row).find('.node-input-channels-channel').val()
                 let unit = $(row).find('.node-input-channels-unit').val()
                 let channeltype = $(row).find('.node-input-channels-channel-channeltype').val()
-                if(msg.trim() || channel.trim() || unit.trim()) this.channels[msg]={channeltype,channel,unit}
+                let unittype = $(row).find('.node-input-channels-unit-unittype').val()
+
+                if(msg.trim() || channel.trim() || unit.trim()) this.channels[msg]={channeltype,channel,unit, unittype}
             })
 
             // All requires are fullfilled
@@ -102,11 +105,15 @@
                     })                     
 
                     let unitInput = $('<input/>',{id:'input_unit_'+index,class:"node-input-channels-unit",type:"text"}).appendTo(rows[2]).val(data.unit)
+                    let unitInputType = $('<input/>',{id:'input_unit_unittype_'+index,class:"node-input-channels-unit-unittype",type:"hidden",value:""}).appendTo(rows[1])
                     unitInput.typedInput({types:['str','msg']}).typedInput('width','calc(100% - 10px)')
+                    unitInput.typedInput('type',data.unittype)
                     unitInput.typedInput('value',(data.unit)?data.unit:'#')
+                    unitInputType.val(unitInput.typedInput('type'))
                     setLabel(unitInput,'Unit')
-                    unitInput.on('change', function(evt, type) {
+                    unitInput.on('change', function(evt, type) { 
                         setLabel(unitInput,'Unit')
+                        unitInputType.val(unitInput.typedInput('type'))
                     }) 
                 },
                 removeItem: function(data) {
