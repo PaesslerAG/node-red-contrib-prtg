@@ -200,14 +200,15 @@
         </dd>
         
         <dt>ID Token 
-            <span class="property-type">string</span>
+            <span class="property-type">string | mustache template</span>
         </dt>
         <dd>
             This is the unique identifier of the configured sensor in PRTG that you want to address.
+            The token can be set with a Mustache template, e.g. <code>{{payload}}</code> when the ID Token is the input message's payload.
         </dd>
         
         <dt>Sensor Message 
-            <span class="property-type">string|payload path</span>
+            <span class="property-type">string | payload path</span>
         </dt>
         <dd>
             This is the message that the configured sensor in PRTG should show, either as a plain string, or as an extracted payload path.
