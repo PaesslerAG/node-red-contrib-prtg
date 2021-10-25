@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - migrate_ci_to_actions
 jobs:
   release:
     name: Release
