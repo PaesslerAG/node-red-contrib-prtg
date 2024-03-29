@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/PaesslerAG/node-red-contrib-prtg#readme",
   "devDependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "semantic-release": "^23.0.0"
   },
   "dependencies": {    
