@@ -38,7 +38,7 @@
   "homepage": "https://github.com/PaesslerAG/node-red-contrib-prtg#readme",
   "devDependencies": {
     "gulp": "^5.0.0",
-    "semantic-release": "^23.0.0"
+    "semantic-release": "^24.0.0"
   },
   "dependencies": {    
     "mustache": "^4.2.0"
